@@ -1,0 +1,4 @@
+﻿Image: C:\Users\Hunter_admin\Desktop\NovaKernel\nova_vesa.img
+Target: VendorCo ProductCode  14.6GB  serial=2391591081245544823
+Wrote 51712 bytes (boot sector + kernel) to disk 2.
+DONE - USB now boots Nova OS on a legacy/CSM BIOS.

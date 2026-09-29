@@ -1,0 +1,6 @@
+tools/qemu/
+tools/qemu-w64-setup-20260811.exe
+backup_before_*/
+*.img
+*.bin
+*.lst
