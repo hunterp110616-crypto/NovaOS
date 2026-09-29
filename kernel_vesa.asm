@@ -11,6 +11,11 @@
 BITS 32
 ORG 0x8000
 
+; Which build this is. 0 = the free download anyone can flash from GitHub.
+; 1 = the store-bought edition (unlocks bonus apps, no product key -- just
+; a different build from the same source). Flip this one line and rebuild.
+EDITION_STORE equ 0
+
 ; 0x00RRGGBB colours  (sleek dark theme)
 C_DESK   equ 0x000A101C   ; desktop fallback (gradient overrides)
 C_GREEN  equ 0x00268F5E   ; accent (Start button)
@@ -9296,7 +9301,30 @@ draw_about_content:
     add eax, 140
     mov [tx], eax
     mov eax, [con_y0]
-    add eax, 100
+    add eax, 96
+    mov [ty], eax
+%if EDITION_STORE
+    mov dword [tcolor], 0x00FFC94D
+    mov esi, about_store_yes
+    call draw_text
+%else
+    mov dword [tcolor], 0x00E08A5A
+    mov esi, about_store_no1
+    call draw_text
+    mov eax, [con_x0]
+    add eax, 140
+    mov [tx], eax
+    mov eax, [con_y0]
+    add eax, 118
+    mov [ty], eax
+    mov esi, about_store_no2
+    call draw_text
+%endif
+    mov eax, [con_x0]
+    add eax, 140
+    mov [tx], eax
+    mov eax, [con_y0]
+    add eax, 142
     mov [ty], eax
     mov dword [tcolor], 0x0070D890
     mov esi, about_snd_yes
@@ -9312,7 +9340,7 @@ draw_about_content:
     add eax, 140
     mov [tx], eax
     mov eax, [con_y0]
-    add eax, 122
+    add eax, 164
     mov [ty], eax
     mov dword [tcolor], 0x006C7686
     mov esi, about_diag_stage
@@ -9350,7 +9378,7 @@ draw_about_content:
     add eax, 140                     ; timer (LPIB would be at/near CBL) or a real DMA stall
     mov [tx], eax                    ; (LPIB stuck well short of CBL) or a hardware fault
     mov eax, [con_y0]                ; (SDSTS FIFOE/DESE bits set).
-    add eax, 122
+    add eax, 164
     mov [ty], eax
     mov dword [tcolor], 0x006C7686
     mov esi, about_lpib_lbl
@@ -9368,6 +9396,9 @@ draw_about_content:
 .done:
     popad
     ret
+about_store_yes:  db "Store Edition (registered)", 0
+about_store_no1:  db "Nova OS is not store-bought.", 0
+about_store_no2:  db "Buy the full copy in stores.", 0
 about_snd_yes:    db "Sound: real speakers (HD Audio found)", 0
 about_snd_no:     db "Sound: PC speaker (no HD Audio chip found)", 0
 about_lpib_lbl:   db "last stream stopped at byte ", 0
@@ -10278,7 +10309,7 @@ setrow:    dd 0
 def_x:     dd 70,150,230,120,170,100,90,110,140,180,120,60,130,100,120,150,170,90
 def_y:     dd 60,92,124,84,112,70,100,60,80,90,70,50,110,70,64,86,96,66
 def_w:     dd 560,300,330,430,410,540,600,600,420,420,420,600,460,372,560,480,460,560
-def_h:     dd 360,320,190,210,210,360,400,440,380,300,340,440,240,286,390,380,340,360
+def_h:     dd 360,320,190,210,256,360,400,440,380,300,340,440,240,286,390,380,340,360
 tb_bx:     dd 0
 kbd_sc:    db 0
 last_sc:   db 0
