@@ -1,5 +1,7 @@
 # NovaOS
 
+**[Visit the NovaOS website →](https://hunterp110616-crypto.github.io/NovaOS/)**
+
 NovaOS is a 32-bit operating system built entirely from scratch in x86 assembly — its own bootloader, kernel, window manager, USB driver, and sound driver, all hand-written with no underlying Linux, Windows, or BSD code. It's a **basic** OS: it boots on real hardware, gives you a graphical desktop, and lets you do simple everyday things — it is not trying to compete with a modern OS yet.
 
 **Networking (Wi-Fi/Ethernet) is not included in this release.** It's planned for NovaOS 2.0. This release is the foundation: boot, desktop, apps, storage, and sound.
